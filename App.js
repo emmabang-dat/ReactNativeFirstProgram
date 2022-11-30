@@ -1,43 +1,57 @@
 import React, { useState} from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 export default function App() {
-  const [name, setName] = useState('Malthe');
-  const [age, setAge] = useState('26');
+  const [people, setPeople] = useState([
+    { name: 'Malthe', id: '1'},
+    { name: 'Emma', id: '2'},
+    { name: 'Laila', id: '3'},
+    { name: 'Kevin', id: '4'},
+    { name: 'Casper', id: '5'},
+    { name: 'Jens Peter', id: '6'},
+    { name: 'Nicolai', id: '7'},
+  ]);
+
+
+  /* return (
+    <View style={styles.container}>
+      <ScrollView>
+      { people.map(item => (
+          <View key={item.key}>
+            <Text style={styles.item}>{item.name}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </View> 
+  ); */
 
   return (
     <View style={styles.container}>
-      <Text>Enter name:</Text>
-      <TextInput 
-        multiline
-        style={styles.input}
-        placeholder='e.g. Jane Doe'
-        onChangeText={(val) => setName(val)}/>
-
-      <Text>Enter age:</Text>
-      <TextInput 
-        keyboardType='numeric'
-        style={styles.input}
-        placeholder='e.g. 99'
-        onChangeText={(val) => setAge(val)}/>
-
-      <Text>Name: {name}, Age: {age}</Text>
+      <FlatList 
+        numColumns={2}
+        keyExtractor={(item) => item.id}
+        data={people}
+        renderItem={({item}) => (
+          <Text style={styles.item}>{item.name}</Text>)}/>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 40,
+    paddingHorizontal: 20,
+    //alignItems: 'center',
+    //justifyContent: 'center',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
+  item: {
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: 'pink',
+    fontSize: 24,
+    marginHorizontal: 10,
+    marginTop:24,
   }
 });
